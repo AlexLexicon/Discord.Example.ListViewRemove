@@ -4,16 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Discord.Example.ListViewRemove.ViewModels;assembly=Discord.Example.ListViewRemove.ViewModels"
     mc:Ignorable="d"
     Title="MainWindow"
     Width="800"
-    Height="450"
-    x:Name="MyWindow">
+    Height="450">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     
     <Grid>
         <ListView
             Margin="25"
-            ItemsSource="{Binding ElementName=MyWindow, Path=MyItems}">
+            ItemsSource="{Binding MyViewModels}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -23,12 +27,12 @@
                         </Grid.ColumnDefinitions>
                         <Label 
                             Grid.Column="0" 
-                            Content="{Binding Path=Name}"/>
+                            Content="{Binding Path=Model.Name}"/>
                         <Button
                             Grid.Column="1"
                             DockPanel.Dock="Left"
                             Content="Remove"
-                            Click="Button_Click"/>
+                            Command="{Binding Path=RemoveCommand}"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
